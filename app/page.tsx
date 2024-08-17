@@ -7,9 +7,11 @@ import { groq } from 'next-sanity';
 const Home = async () => {
   const query = '*[_type == "product"]';
   const products = await client.fetch(groq `*[_type == "product"]`);
+  console.log(products)
+  console.log("=================================")
 
   const bannerQuery = '*[_type == "banner"]';
-  const bannerData = await client.fetch(bannerQuery);
+  const bannerData = await client.fetch(groq `*[_type == "banner"]`);
 
   return (
     <>
@@ -21,10 +23,10 @@ const Home = async () => {
       </div>
 
       <div className='products-container'>
-        {products?.map((product: any) => product.name)}
+        {products?.map((product:any,index:number) => <Product key={product._id} product={product} />)}
       </div>
 
-      <FooterBanner />
+      <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </>
   )
 }

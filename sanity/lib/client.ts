@@ -8,7 +8,11 @@ import { apiVersion, dataset, projectId } from '../env'
 export const client = createClient({
   projectId: "j8kmcwec",
   dataset: "production",
-  apiVersion: "2024-08-16",
+  apiVersion: "2024-07-12",
   useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
 })
+
+const builder = imageUrlBuilder(client);
+
+export const urlFor = (source: SanityImageSource) => builder.image(source);
